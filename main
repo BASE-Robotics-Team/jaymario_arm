@@ -1,0 +1,77 @@
+#include <kipr/wombat.h>
+
+int main()
+{
+    int arm = 0;
+    int hand = 1;
+    int grab = 1100 ;
+    int rise = 500;
+    int drop = 1800;
+    int openopen = 0;
+    
+    /* small block arm= 1600
+       big block arm =1600
+    if you open the hand to 0 and drive the bottom of the hand to a block
+    you can penny pinch a big block at 540 and a small block at 660*/
+    /*wait_for_light(0);*/
+    shut_down_in(119);
+    enable_servos();
+    
+    set_servo_position(arm,0);
+    msleep(1000);
+    set_servo_position(hand,0);
+    msleep(1000);
+	ao();
+   
+    mav(0,2000); mav(1,2000);
+    msleep(2500);
+    mav(0,-3600); mav(1,3600);
+    msleep(830); //run for 1 sec
+    printf("2\n");
+    mav(0,2000); mav(1,2028);
+    msleep(9000);
+    /*mav(0,-3700); mav(1,3700);
+    msleep(300);*/
+    /*mav(0,3700); mav(1,-3700);
+    msleep(800);*/
+    
+    ao();
+    printf("servos on \n");
+    enable_servos();
+    set_servo_position(hand,openopen);
+    msleep(1000);
+    set_servo_position(arm,drop);
+    msleep(1000);
+    set_servo_position(hand,grab);
+    msleep(1000);
+    set_servo_position(arm,rise);
+    msleep(1000);
+    
+    ao();
+    printf("turn 1\n");
+    mav(0,-370); mav(1,370);
+    msleep(1630);
+    printf("forward 1\n");
+    mav(0,9000); mav(1,9000);
+    msleep(2000);
+    printf("turn 2\n");
+    mav(0,-370); mav(1,370);
+    msleep(2150);
+    printf("forward 2\n");
+    mav(0,920); mav(1,920);
+    msleep(2500);
+    printf("turn \n");
+    mav(0,-370); mav(1,370);
+    msleep(1100);
+    printf("servo off\n");
+    ao();
+    printf("lets see\n");
+    enable_servos();
+    set_servo_position(hand,openopen);
+    msleep(1000);
+    disable_servos();
+    ao();
+    ao();
+    ao();
+    return 0;
+}
